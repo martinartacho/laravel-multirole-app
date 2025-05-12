@@ -1,17 +1,19 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center justify-between mb-4">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight flex items-center">
-                <i class="bi bi-people-fill mr-2"></i>
-                {{ __('site.User Management') }}
-            </h2>
-            <a href="{{ route('admin.users.create') }}">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight flex items-center">
+            <i class="bi bi-people-fill mr-2"></i>
+            {{ __('site.User Management') }}
+            <!-- 
+            Opcional si se permite que gestor pueda crear users
+            <a href="{{ route('admin.users.create') }}" class="ml-auto">
                 <x-primary-button>
-                    <i class="bi bi-plus-lg mr-1"></i>{{ __('site.Create User') }} 
+                    <i class="bi bi-plus-lg mr-1"></i> Nuevo Usuario
                 </x-primary-button>
-            </a>
-        </div>
+            </a> -->
+        </h2>
     </x-slot>
+
+
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -39,27 +41,17 @@
                                 <tr class="border-b">
                                     <td class="text-left px-4 py-2 w-1/3">{!! $user->name !!}</td>
                                     <td class="text-left  px-4 py-2 w-2/20" >{!! $user->email !!}</td>
-                                    <td class="text-left  px-4 py-2 w-2/20" >{{ $user->getRoleNames()->first() ??  __('No role') }}</td>
+                                    <td class="text-left  px-4 py-2 w-2/20" >{{ $user->getRoleNames()->first() ??  __('site.No role') }}</td>
                                     <td class="py-3">{{ $user->created_at->format('d/m/Y') }}</td>
                                     <!-- Celdas de datos... -->
                                     <td class="px-6 py-4  text-sm font-medium">
                                         <div class="flex space-x-2">
                                             <a href="{{ route('admin.users.edit', $user) }}" 
                                                class="text-indigo-600 hover:text-indigo-900"
-                                               title=">{{ __('site.Edit') }}">
+                                               title="Editar">
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
 
-                                            <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" 
-                                                        class="text-red-600 hover:text-red-900"
-                                                        title=">{{ __('site.Delete') }}"
-                                                        onclick="return confirm('{{ addslashes(__('Are you sure to delete this user?')) }}')">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            </form>
                                         </div>
                                     </td>
                                 </tr>

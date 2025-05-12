@@ -33,7 +33,7 @@ class UserController extends Controller
         $user->assignRole($request->roles);
 
         return redirect()->route('admin.users.index')
-            ->with('success', 'Usuario creado correctamente');
+            ->with('success', __('site.user_created'));
     }
 
     public function edit(User $user)
@@ -54,13 +54,13 @@ class UserController extends Controller
         $user->syncRoles($request->roles);
 
         return redirect()->route('admin.users.index')
-            ->with('success', 'Usuario actualizado correctamente');
+            ->with('success',  __('site.user_updated'));
     }
 
     public function destroy(User $user)
     {
         $user->delete();
         return redirect()->route('admin.users.index')
-            ->with('success', 'Usuario eliminado correctamente');
+            ->with('success', __('site.user_deleted'));
     }
 }

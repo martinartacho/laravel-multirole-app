@@ -20,7 +20,12 @@ class RolesAndPermissionsSeeder extends Seeder
             'manage_limited_users',
             'send_notifications',
             'publish_content',
-            'edit_content'
+            'edit_content',
+            'view_notifications',  // Nuevo permiso para ver notificaciones
+            'create_content',   // Cambiado de 'create content' para consistencia
+            'edit_content',      // Cambiado de 'edit content' para consistencia
+            'publish_content',  // Cambiado de 'publish content' para consistencia
+            'view_users'  // Cambiado de 'view users' para consistencia
         ];
 
         foreach ($permissions as $permission) {
@@ -37,7 +42,14 @@ class RolesAndPermissionsSeeder extends Seeder
         $editor = Role::firstOrCreate(['name' => 'editor']);
         $editor->givePermissionTo(['publish_content', 'edit_content']);
 
+        // rol user pueden leer notifications
         $user = Role::firstOrCreate(['name' => 'user']);
-        // Sin permisos especiales
+        $editor->givePermissionTo(['show_content', 'view_notification']); 
+
+       // Sin permisos especiales
+        $user = Role::firstOrCreate(['name' => 'invited']);
+ 
+
+
     }
 }

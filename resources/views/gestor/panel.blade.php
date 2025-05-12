@@ -11,7 +11,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <!-- Contenido del CRUD -->
                     
-                    Hola mundo soy el Gestor
+                    Hola mundo soy el Gestor 
                 </div>
             </div>
         </div>

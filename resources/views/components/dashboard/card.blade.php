@@ -8,7 +8,7 @@
     </div>
     @if($link)
         <a href="{{ $link }}" class="mt-3 inline-block text-{{ $color }}-600 hover:underline">
-            Ver detalles →
+        {{ __('See details.') }} →
         </a>
     @endif
 </div>

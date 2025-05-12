@@ -53,7 +53,7 @@ class User extends Authenticatable
      *
      * @return $with roles
      */
-/*     protected $with = ['roles'];
+    /*
 
     public function getRoleNames()
     {
@@ -62,4 +62,17 @@ class User extends Authenticatable
         });
     } */
 
+
+    public function notifications()
+    {
+        return $this->belongsToMany(Notification::class, 'notification_user')
+                    ->withPivot('read', 'read_at')
+                    ->orderBy('created_at', 'desc');
+    }
+    
+    public function unreadNotifications()
+    {
+        return $this->notifications()->wherePivot('read', false);
+    }
+    
 }

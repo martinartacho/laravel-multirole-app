@@ -1,6 +1,5 @@
 <?php
 
-// app/Http/Controllers/Gestor/UserController.php
 namespace App\Http\Controllers\Gestor;
 
 use App\Http\Controllers\Controller;

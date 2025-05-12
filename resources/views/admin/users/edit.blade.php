@@ -2,7 +2,7 @@
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight flex items-center">
             <i class="bi bi-pencil-square mr-2"></i>
-            {{ __('Editar Usuario') }}
+            {{ __('site.Edit User') }}
         </h2>
     </x-slot>
 
@@ -17,21 +17,21 @@
                         <div class="grid grid-cols-1 gap-6 mt-4">
                             <!-- Nombre -->
                             <div class="col-span-1">
-                                <x-input-label for="name" :value="__('Nombre')" />
+                                <x-input-label for="name" :value="__('site.Name')" />
                                 <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" 
                                     value="{{ old('name', $user->name) }}" required />
                             </div>
 
                             <!-- Email -->
                             <div class="col-span-1">
-                                <x-input-label for="email" :value="__('Email')" />
+                                <x-input-label for="email" :value="__('site.Email')" />
                                 <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" 
                                     value="{{ old('email', $user->email) }}" required />
                             </div>
 
                             <!-- Roles -->
                             <div class="col-span-1">
-                                <x-input-label :value="__('Roles')" />
+                                <x-input-label :value="__('site.Roles.')" />
                                 <div class="mt-2 space-y-2">
                                     @foreach($roles as $role)
                                     <label class="flex items-center">
@@ -47,7 +47,7 @@
 
                         <div class="flex items-center justify-end mt-6">
                             <x-primary-button class="ml-4">
-                                {{ __('Actualizar Usuario') }}
+                                {{ __('site.Update User') }}
                             </x-primary-button>
                         </div>
                     </form>

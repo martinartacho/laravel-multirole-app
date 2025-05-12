@@ -2,7 +2,7 @@
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight flex items-center">
             <i class="bi bi-person-plus mr-2"></i>
-            {{ __('Crear Nuevo Usuario') }}
+            {{ __('site.Create User') }}
         </h2>
     </x-slot>
 
@@ -16,19 +16,19 @@
                         <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
                             <!-- Nombre -->
                             <div>
-                                <x-input-label for="name" :value="__('Nombre')" />
+                                <x-input-label for="name" :value="__('site.Name')" />
                                 <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" required autofocus />
                             </div>
 
                             <!-- Email -->
                             <div>
-                                <x-input-label for="email" :value="__('Email')" />
+                                <x-input-label for="email" :value="__('site.Email')" />
                                 <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" required />
                             </div>
 
                             <!-- Contraseña -->
                             <div>
-                                <x-input-label for="password" :value="__('Contraseña')" />
+                                <x-input-label for="password" :value="__('site.Password_label')" />
                                 <x-text-input id="password" class="block mt-1 w-full"
                                                 type="password"
                                                 name="password"
@@ -37,7 +37,7 @@
 
                             <!-- Confirmar Contraseña -->
                             <div>
-                                <x-input-label for="password_confirmation" :value="__('Confirmar Contraseña')" />
+                                <x-input-label for="password_confirmation" :value="__('site.password_confirmation')" />
                                 <x-text-input id="password_confirmation" class="block mt-1 w-full"
                                                 type="password"
                                                 name="password_confirmation" required />
@@ -45,7 +45,7 @@
 
                             <!-- Roles -->
                             <div class="sm:col-span-2">
-                                <x-input-label :value="__('Roles')" />
+                                <x-input-label :value="__('site.Roles.')" />
                                 <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2">
                                     @foreach($roles as $role)
                                     <label class="inline-flex items-center">
@@ -59,7 +59,7 @@
 
                         <div class="flex items-center justify-end mt-6">
                             <x-primary-button class="ml-4">
-                                {{ __('Crear Usuario') }}
+                                {{ __('site.Create User') }}
                             </x-primary-button>
                         </div>
                     </form>
