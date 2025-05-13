@@ -31,7 +31,7 @@
                     @auth
                         <a
                             href="{{ url('/dashboard') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
+                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] border-gray-300 rounded-sm text-sm leading-normal"
                         >
                         {{ __('Dashboard') }}
                         </a>
@@ -46,22 +46,33 @@
                         @if (Route::has('register'))
                             <a
                                 href="{{ route('register') }}"
-                                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
+                                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] border-gray-300 rounded-sm text-sm leading-normal">
                                     {{ __('auth.register') }}
                             </a>
                         @endif
                     @endauth
+                    <form method="POST" action="{{ route('locale.set') }}">
+                        @csrf
+                        <select name="locale" onchange="this.form.submit()" 
+                        class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] border-gray-300 rounded-sm text-sm leading-normal">
+                            <option value="en" @selected(app()->getLocale() == 'en')>EN</option>
+                            <option value="es" @selected(app()->getLocale() == 'es')>ES</option>
+                            <option value="ca" @selected(app()->getLocale() == 'ca')>CA</option>
+                        </select>
+                    </form>
+                    <p>Idioma actual: {{ app()->getLocale() }}</p>
                 </nav>
             @endif
         </header>
         <div class="flex items-center justify-center w-full transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
             <main class="flex max-w-[335px] w-full flex-col-reverse lg:max-w-4xl lg:flex-row">
                 <div class="text-[13px] leading-[20px] flex-1 p-6 pb-12 lg:p-20 bg-white dark:bg-[#161615] dark:text-[#EDEDEC] shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d] rounded-bl-lg rounded-br-lg lg:rounded-tl-lg lg:rounded-br-none">
-                    <h1 class="mb-1 font-medium">Comencem!</h1>
+                    <h1 class="mb-1 font-medium">{{ __('site.welcome') }}</h1>
+                    <h1 class="mb-1 font-medium">{{ __('site.title_1') }}</h1>
                     <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">
-                        Hartacho con H, no és un error, es tracte de tornar als origens. <br>Aquest projecte és una aplicació web basada a Laravel que inclou...
+                    {{ __('site.item_1') }} <br>{{ __('site.item_2') }}
                     </p>
-                    <h2 class="mb-1 font-medium"> Autenticació i Notificacions </h2>
+                    <h2 class="mb-1 font-medium"> {{ __('site.title_2') }} </h2>
                     <ul class="flex flex-col mb-4 lg:mb-6">
                         <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:top-1/2 before:bottom-0 before:left-[0.4rem] before:absolute">
                             <span class="relative py-1 bg-white dark:bg-[#161615]">
@@ -69,7 +80,7 @@
                             </span>
                             <span>
                                 <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">
-                                    Autenticació d'usuaris i diferents rols admin fins a convidats, amb permisos específics per a cada rol.
+                                {{ __('site.item_3') }}
                                 </p>
                             </span>
                         </li>
@@ -80,7 +91,7 @@
                             </span>
                             <span>
                                 <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">
-                                    Notifications per comunicar als usuaris, a traves de web o mail.
+                                {{ __('site.item_4') }} 
                                 </p>
 
                                 </a>
@@ -93,10 +104,10 @@
                             </span>
                             <span>
                                 <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">
-                                Per començar pots fer-li una ullada al <a href="https://github.com/martinartacho/laravel-multirole-app" target="_blank" class="inline-flex items-center space-x-1 font-medium underline underline-offset-4 text-[#f53003] dark:text-[#FF4433] ml-1">
-                                    <span>Codi font</span>
+                                {{ __('site.item_5') }} <a href="https://github.com/martinartacho/laravel-multirole-app" target="_blank" class="inline-flex items-center space-x-1 font-medium underline underline-offset-4 text-[#f53003] dark:text-[#FF4433] ml-1">
+                                    <span>{{ __('site.item_6') }}</span>
                                 </a>. 
-                                Està esperant suggeriments, propostes, revisions i aportacions i colaboradores
+                                {{ __('site.item_7') }}
                                 </p>
                                 
                             </span>
@@ -110,45 +121,7 @@
                         </li>
                     </ul>
 
-                    <h1 class="mb-1 font-medium">Let's get started!!</h1>
-                    <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">
-                    Hartacho with
-                    H maybe not a mistake, it's about going back to the origins.<br>This project is a web application based on Laravel that includes...
-                    </p>
-                    <h2 class="mb-1 font-medium"> Autentication and Notifications </h2>
-                    <ul class="flex flex-col mb-4 lg:mb-6">
-                        <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:top-1/2 before:bottom-0 before:left-[0.4rem] before:absolute">
-                            <span class="relative py-1 bg-white dark:bg-[#161615]">
-                                <i class="bi bi-people-fill mr-2"></i>
-                            </span>
-                            <span>
-                                <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">
-                                User authentication and different roles from admin to guests, with specific permissions for each role.
-                                </p>
-                            </span>
-                        </li>
-                        <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:top-1/2 before:bottom-0 before:left-[0.4rem] before:absolute">
-                            <span class="relative py-1 bg-white dark:bg-[#161615]">
-                                <i class="bi bi-bell-fill mr-2"></i>
-                            </span>
-                            <span>
-                                <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">
-                                    Notifications per comunicar als usuaris, a traves de web o mail.
-                                </p>
-
-                                <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:top-1/2 before:bottom-0 before:left-[0.4rem] before:absolute">
-                            <span class="relative py-1 bg-white dark:bg-[#161615]">
-                                <i class="bi bi-github mr-2"></i>
-                            </span>
-                            <span>
-                                <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">
-                                o get started, you can take a look at the code at  <a href="https://github.com/martinartacho/laravel-multirole-app" target="_blank" class="inline-flex items-center space-x-1 font-medium underline underline-offset-4 text-[#f53003] dark:text-[#FF4433] ml-1">
-                                    <span>Source code.</span>
-                                </a> It is waiting for suggestions, proposals, reviews and contributions and collaborators.
-                                </p>
-                                
-                            </span>
-                        </li>
+                    </li>
           
 
 
@@ -164,10 +137,10 @@
 
                 </div>
                 
-                <div class="bg-[#fff2f2] dark:bg-[#1D0002] relative lg:-ml-px -mb-px lg:mb-0 rounded-t-lg lg:rounded-t-none lg:rounded-r-lg aspect-[335/376] lg:aspect-auto w-full lg:w-[438px] shrink-0 overflow-hidden">
+                <div class="bg-[#fff2f2] dark:bg-[#1D0002] relative lg:-ml-px -mb-px lg:mb-0 rounded-t-lg lg:rounded-t-none lg:rounded-r-lg aspect-[335/335] lg:aspect-auto w-full lg:w-[438px] shrink-0 overflow-hidden">
                     {{-- H Logo --}}
-                    
-                    <img src="{{ asset('img/h.svg') }}" alt="H" height="50%"/>
+                   
+                    <img src="{{ asset('img/h.svg') }}" alt="H" class="h-12 w-auto"/>
 
                     <img src="{{ asset('img/artacho.svg') }}" alt="Artacho"   />
 

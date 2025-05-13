@@ -4,10 +4,16 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Gestor\GestorController;
- use App\Http\Controllers\Gestor\UserController as GestorUserController;
-
+use App\Http\Controllers\Gestor\UserController as GestorUserController;
 use App\Http\Controllers\NotificationController;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Route;
+
+// Rutas lang
+Route::post('/locale', function (\Illuminate\Http\Request $request) {
+    Session::put('locale', $request->input('locale'));
+    return back();
+})->name('locale.set');
 
 // Rutas públicas
 Route::get('/', function () {

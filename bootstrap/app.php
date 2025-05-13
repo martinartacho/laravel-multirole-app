@@ -10,8 +10,12 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
+    
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        // Agregar SetLocale como middleware global
+        $middleware->append(\App\Http\Middleware\SetLocale::class);
+        
+        // Alias para middlewares de roles/permiso
         $middleware->alias([
             'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
             'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
