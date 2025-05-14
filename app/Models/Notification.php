@@ -26,6 +26,8 @@ class Notification extends Model
     protected $casts = [
         'recipient_ids' => 'array',
         'published_at' => 'datetime',
+        'recipient_ids' => 'array',
+    
     ];
 
     public function sender()
@@ -40,6 +42,7 @@ class Notification extends Model
                     ->orderBy('notification_user.created_at', 'desc')
                     ->withTimestamps();
     }
+    
 
     public function scopeUnread($query, $userId)
     {

@@ -45,29 +45,54 @@ Route::middleware(['auth', 'verified'])->group(function () {
         
     }); 
 
-    Route::middleware(['auth', 'verified'])->group(function() {
-        // Notificaciones
-        Route::prefix('notifications')->group(function() {
-            Route::get('/', [NotificationController::class, 'index'])->name('notifications.index');
-            Route::get('/create', [NotificationController::class, 'create'])->name('notifications.create');
-            Route::post('/', [NotificationController::class, 'store'])->name('notifications.store');
-            // Si usas vistas separadas
-            Route::resource('notifications', NotificationController::class)->except(['create', 'edit']);
+Route::middleware(['auth'])->group(function () {
+    Route::get('/notifications', [NotificationController::class, 'index'])
+        ->name('notifications.index')
+        ->middleware('permission:notifications.view');
 
-            Route::get('/notifications/{notification}', [NotificationController::class, 'show'])->name('notifications.show');
+    Route::get('/notifications/create', [NotificationController::class, 'create'])
+        ->name('notifications.create')
+        ->middleware('permission:notifications.create');
 
-            Route::get('/{notification}/edit', [NotificationController::class, 'edit'])->name('notifications.edit');
-            Route::put('/{notification}', [NotificationController::class, 'update'])->name('notifications.update');
-            Route::delete('/{notification}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
-            Route::post('/{notification}/publish', [NotificationController::class, 'publish'])->name('notifications.publish');
-        });
-    
-        // API para notificaciones
-        Route::prefix('api')->group(function() {
-            Route::get('/notifications/unread-count', [NotificationController::class, 'getUnreadCount'])->name('notifications.unread-count');
-            Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.mark-all-read');
-        });
+    Route::post('/notifications', [NotificationController::class, 'store'])
+        ->name('notifications.store')
+        ->middleware('permission:notifications.create');
+
+    Route::get('/notifications/{notification}', [NotificationController::class, 'show'])
+        ->name('notifications.show')
+        ->middleware('permission:notifications.view');
+
+    Route::get('/notifications/{notification}/edit', [NotificationController::class, 'edit'])
+        ->name('notifications.edit')
+        ->middleware('permission:notifications.edit');
+
+    Route::put('/notifications/{notification}', [NotificationController::class, 'update'])
+        ->name('notifications.update')
+        ->middleware('permission:notifications.edit');
+
+    Route::delete('/notifications/{notification}', [NotificationController::class, 'destroy'])
+        ->name('notifications.destroy')
+        ->middleware('permission:notifications.delete');
+});
+
+    // CRUD principal de notificaciones
+/*  Limiar esto 
+    Route::resource('notifications', NotificationController::class);
+
+    Route::post('notifications/{notification}/publish', [NotificationController::class, 'publish'])
+        ->name('notifications.publish');
+*/
+    // API para notificaciones
+    Route::prefix('api')->group(function () {
+        Route::get('/notifications/unread-count', [NotificationController::class, 'getUnreadCount'])->name('notifications.unread-count');
+        Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.mark-all-read');
     });
+
+
+/*     Route::get('/test-permission', function () {
+        return 'Tienes permiso para ver esta ruta.';
+    })->middleware('permission:notifications.view'); */
+
 
 
 });
