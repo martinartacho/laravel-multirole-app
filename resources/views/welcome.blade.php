@@ -8,11 +8,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>H Artacho</title>
+        <title>HArtacho</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 
         <!-- Styles / Scripts -->
@@ -31,7 +31,7 @@
                     @auth
                         <a
                             href="{{ url('/dashboard') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] border-gray-300 rounded-sm text-sm leading-normal"
+                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
                         >
                         {{ __('Dashboard') }}
                         </a>
@@ -46,21 +46,11 @@
                         @if (Route::has('register'))
                             <a
                                 href="{{ route('register') }}"
-                                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] border-gray-300 rounded-sm text-sm leading-normal">
+                                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
                                     {{ __('auth.register') }}
                             </a>
                         @endif
                     @endauth
-                    <form method="POST" action="{{ route('locale.set') }}">
-                        @csrf
-                        <select name="locale" onchange="this.form.submit()" 
-                        class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] border-gray-300 rounded-sm text-sm leading-normal">
-                            <option value="en" @selected(app()->getLocale() == 'en')>EN</option>
-                            <option value="es" @selected(app()->getLocale() == 'es')>ES</option>
-                            <option value="ca" @selected(app()->getLocale() == 'ca')>CA</option>
-                        </select>
-                    </form>
-                    <p>Idioma actual: {{ app()->getLocale() }}</p>
                 </nav>
             @endif
         </header>
@@ -70,81 +60,62 @@
                     <h1 class="mb-1 font-medium">{{ __('site.welcome') }}</h1>
                     <h1 class="mb-1 font-medium">{{ __('site.title_1') }}</h1>
                     <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">
-                    {{ __('site.item_1') }} <br>{{ __('site.item_2') }}
+                         {{ __('site.item_1') }} <br>{{ __('site.item_2') }}
                     </p>
                     <h2 class="mb-1 font-medium"> {{ __('site.title_2') }} </h2>
                     <ul class="flex flex-col mb-4 lg:mb-6">
                         <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:top-1/2 before:bottom-0 before:left-[0.4rem] before:absolute">
                             <span class="relative py-1 bg-white dark:bg-[#161615]">
-                                <i class="bi bi-people-fill mr-2"></i>
+                                <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 border dark:border-[#3E3E3A] border-[#e3e3e0]">
+                                    <span class="rounded-full bg-[#dbdbd7] dark:bg-[#3E3E3A] w-1.5 h-1.5"></span>
+                                </span>
                             </span>
                             <span>
-                                <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">
-                                {{ __('site.item_3') }}
-                                </p>
+                                {{ __('site.item_3') }} 
                             </span>
                         </li>
-                        
                         <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:top-1/2 before:bottom-0 before:left-[0.4rem] before:absolute">
                             <span class="relative py-1 bg-white dark:bg-[#161615]">
-                                <i class="bi bi-bell-fill mr-2"></i>
+                                <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 border dark:border-[#3E3E3A] border-[#e3e3e0]">
+                                    <span class="rounded-full bg-[#dbdbd7] dark:bg-[#3E3E3A] w-1.5 h-1.5"></span>
+                                </span>
                             </span>
                             <span>
-                                <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">
                                 {{ __('site.item_4') }} 
-                                </p>
-
-                                </a>
                             </span>
                         </li>
-
-                        <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:top-1/2 before:bottom-0 before:left-[0.4rem] before:absolute">
+                                   
+                        <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:bottom-1/2 before:top-0 before:left-[0.4rem] before:absolute">
                             <span class="relative py-1 bg-white dark:bg-[#161615]">
-                                <i class="bi bi-github mr-2"></i>
+                                <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 border dark:border-[#3E3E3A] border-[#e3e3e0]">
+                                    <span class="rounded-full bg-[#dbdbd7] dark:bg-[#3E3E3A] w-1.5 h-1.5"></span>
+                                </span>
                             </span>
                             <span>
-                                <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">
+
                                 {{ __('site.item_5') }} <a href="https://github.com/martinartacho/laravel-multirole-app" target="_blank" class="inline-flex items-center space-x-1 font-medium underline underline-offset-4 text-[#f53003] dark:text-[#FF4433] ml-1">
                                     <span>{{ __('site.item_6') }}</span>
                                 </a>. 
                                 {{ __('site.item_7') }}
-                                </p>
-                                
                             </span>
                         </li>
-
                     </ul>
                     <ul class="flex gap-3 text-sm leading-normal">
-                    <hr>
                         <li>
-                          
-                        </li>
-                    </ul>
-
-                    </li>
-          
-
-
-
-                    <ul class="flex gap-3 text-sm leading-normal">
-                        <li>
-                            <a href="https://artacho.org" target="_blank" class="inline-block dark:bg-[#eeeeec] dark:border-[#eeeeec] dark:text-[#1C1C1A] dark:hover:bg-white dark:hover:border-white hover:bg-black hover:border-black px-5 py-1.5 bg-[#1b1b18] rounded-sm border border-black text-white text-sm leading-normal">
-                                DEMO
+                            <a href="https://cloud.laravel.com" target="_blank" class="inline-block dark:bg-[#eeeeec] dark:border-[#eeeeec] dark:text-[#1C1C1A] dark:hover:bg-white dark:hover:border-white hover:bg-black hover:border-black px-5 py-1.5 bg-[#1b1b18] rounded-sm border border-black text-white text-sm leading-normal">
+                                Deploy now
                             </a>
                         </li>
                     </ul>
-
-
                 </div>
-                
-                <div class="bg-[#fff2f2] dark:bg-[#1D0002] relative lg:-ml-px -mb-px lg:mb-0 rounded-t-lg lg:rounded-t-none lg:rounded-r-lg aspect-[335/335] lg:aspect-auto w-full lg:w-[438px] shrink-0 overflow-hidden">
+               <div class="bg-[#fff2f2] dark:bg-[#1D0002] relative lg:-ml-px -mb-px lg:mb-0 rounded-t-lg lg:rounded-t-none lg:rounded-r-lg aspect-[335/376] lg:aspect-auto w-full lg:w-[438px] shrink-0 overflow-hidden flex flex-col items-center justify-center p-4">
                     {{-- H Logo --}}
-                   
-                    <img src="{{ asset('img/h.svg') }}" alt="H" class="h-12 w-auto"/>
-
-                    <img src="{{ asset('img/artacho.svg') }}" alt="Artacho"   />
-
+                    <img src="{{ asset('img/h.svg') }}" alt="H" class="h-[200px] w-auto mb-4" />
+                    
+                    {{-- Artacho Logo --}}
+                    <img src="{{ asset('img/artacho.svg') }}" alt="Artacho" class="h-auto w-[180px]" />
                 </div>
+
             </main>
         </div>
 
