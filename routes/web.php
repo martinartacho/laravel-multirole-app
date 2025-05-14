@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Route;
 
 // Rutas lang
-Route::post('/locale', function (\Illuminate\Http\Request $request) {
+/* Route::post('/locale', function (\Illuminate\Http\Request $request) {
     Session::put('locale', $request->input('locale'));
     return back();
-})->name('locale.set');
+})->name('locale.set'); */
 
 // Rutas públicas
 Route::get('/', function () {

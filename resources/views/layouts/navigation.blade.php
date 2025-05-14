@@ -81,7 +81,7 @@
                                     
                 </div>
             </div>
-            <form method="POST" action="{{ route('locale.set') }}">
+<!--             <form method="POST" action="{{ route('locale.set') }}">
                         @csrf
                         <select name="locale" onchange="this.form.submit()" 
                         class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] border-gray-300 rounded-sm text-sm leading-normal">
@@ -90,7 +90,7 @@
                             <option value="ca" @selected(app()->getLocale() == 'ca')>CA</option>
                         </select>
                     </form>
-                    <p>Idioma actual: {{ app()->getLocale() }}</p>
+                    <p>Idioma actual: {{ app()->getLocale() }}</p> -->
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">

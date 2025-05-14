@@ -31,7 +31,8 @@ class NotificationController extends Controller
         if (Auth::user()->hasRole(['admin', 'gestor', 'editor'])) {
             $notifications = Notification::latest()->paginate(10);
         } else {
-            $notifications = Notification::where('user_id', Auth::id())->latest()->paginate(10);
+            // Otros ven solo las suyas (relación muchos a muchos)
+            $notifications = Auth::user()->notifications()->latest()->paginate(10);
         }
 
         return view('notifications.index', compact('notifications'));
