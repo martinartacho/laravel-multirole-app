@@ -166,14 +166,3 @@
         </div>
     </div>
 </nav>
-                <div class="language-switcher">
-                    @foreach(config('app.available_locales') as $locale)
-                        <a href="{{ route('language.switch', $locale) }}" 
-                        class="{{ app()->getLocale() === $locale ? 'active' : '' }}">
-                            {{ strtoupper($locale) }}
-                        </a>
-                    @endforeach
-                </div>
-          <!--   <p>Desde sesión: {{ session('locale') }}</p>
-            <p>Desde usuario: {{ Auth::check() ? Auth::user()->locale : 'no auth' }}</p> -->
-            <p>Site welcome:  {{ __('site.welcome') }} Desde sesión: {{ session('locale') }}  Desde usuario: {{ Auth::check() ? Auth::user()->locale : 'no auth' }}</p>
