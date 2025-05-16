@@ -1,19 +1,15 @@
 @auth
 <div class="relative" x-data="{ open: false }" @click.outside="open = false">
     <!-- Campana -->
-    <button @click="open = !open" class="relative p-2 text-gray-700 hover:text-gray-900 focus:outline-none">
-         <span class="inline-flex rounded-md">
-            {{ __('Notifications') }}
-        </span>
-    <i class="bi bi-bell text-xl"></i> 
+<button @click="open = !open" class="relative p-2 text-gray-700 hover:text-gray-900 focus:outline-none" data-bell-button>
 
-        @php $unreadCount = auth()->user()->unreadNotifications->count(); @endphp
-        @if($unreadCount > 0)
-            <span id="unread-count" class="absolute top-0 right-0 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-bold leading-none text-white bg-red-600 rounded-full transform translate-x-1/2 -translate-y-1/2">
-                {{ $unreadCount }}
-            </span>
-        @endif
-    </button>
+    <i class="bi bi-bell text-xl"></i> {{ __('site.Notifications') }}
+    @if($unreadCount = auth()->user()->unreadNotifications->count())
+        <span id="unread-count" class="absolute top-0 right-0 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-bold leading-none text-white bg-red-600 rounded-full transform translate-x-1/2 -translate-y-1/2">
+            {{ $unreadCount }}
+        </span>
+    @endif
+</button>
 
     <!-- Dropdown -->
     <div x-show="open"
@@ -44,10 +40,20 @@
         </div>
 
         <div class="border-t">
+        <!--           Limpiar esto <form action="{{ route('notifications.mark-all-read') }}" method="POST" class="mark-all-read-form">
+            @csrf
+            <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                {{ __('site.Mark_all_as_read') }}
+            </button>
+        </form> 
+        -->
+
             <a href="{{ route('notifications.index') }}"
                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-center">{{ __('site.See_all') }}</a>
-            <!-- <a href="#" class="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100 text-center mark-all-read">Marcar como leídas</a> -->
+
+
         </div>
+        
     </div>
 </div>
 @endauth
@@ -55,48 +61,55 @@
 
 @push('scripts')
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    // Marcar como leídas
-    document.querySelector('.mark-all-read')?.addEventListener('click', function (e) {
-        e.preventDefault();
-        fetch('{{ route("notifications.mark-all-read") }}', {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                'Accept': 'application/json',
-            }
-        }).then(res => res.json()).then(data => {
-            if (data.success) {
-                document.getElementById('unread-count')?.remove();
-                document.querySelectorAll('[data-new="true"]').forEach(el => el.remove());
-            }
-        });
-    });
-
-    // Actualizar cada 60s
-    setInterval(() => {
-        fetch('{{ route("notifications.unread-count") }}', {
-            headers: { 'Accept': 'application/json' }
-        })
-        .then(res => res.json())
-        .then(data => {
-            const counter = document.getElementById('unread-count');
-            const bell = document.querySelector('button');
-            if (data.count > 0) {
-                if (!counter) {
-                    const badge = document.createElement('span');
-                    badge.id = 'unread-count';
-                    badge.className = 'absolute top-0 right-0 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-bold leading-none text-white bg-red-600 rounded-full transform translate-x-1/2 -translate-y-1/2';
-                    badge.textContent = data.count;
-                    bell.appendChild(badge);
-                } else {
-                    counter.textContent = data.count;
+    document.addEventListener('DOMContentLoaded', function() {
+        // Marcar todas como leídas
+        document.querySelector('.mark-all-read-form')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            fetch(this.action, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
                 }
-            } else if (counter) {
-                counter.remove();
-            }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Actualizar UI
+                    document.getElementById('unread-count')?.remove();
+                    document.querySelectorAll('.unread-badge').forEach(el => el.remove());
+                    // Mostrar notificación de éxito
+                    alert('Todas las notificaciones marcadas como leídas');
+                }
+            });
         });
-    }, 60000);
-});
+
+        // Actualizar contador
+        function updateUnreadCount() {
+            fetch('{{ route("notifications.unread-count") }}')
+                .then(res => res.json())
+                .then(data => {
+                    const counter = document.getElementById('unread-count');
+                    if (data.count > 0) {
+                        if (!counter) {
+                            const badge = document.createElement('span');
+                            badge.id = 'unread-count';
+                            badge.className = 'absolute top-0 right-0 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-bold leading-none text-white bg-red-600 rounded-full transform translate-x-1/2 -translate-y-1/2';
+                            badge.textContent = data.count;
+                            document.querySelector('[data-bell-button]').appendChild(badge);
+                        } else {
+                            counter.textContent = data.count;
+                        }
+                    } else if (counter) {
+                        counter.remove();
+                    }
+                });
+        }
+
+        // Actualizar cada 30 segundos y al cargar
+        setInterval(updateUnreadCount, 30000);
+        updateUnreadCount();
+    });
 </script>
 @endpush

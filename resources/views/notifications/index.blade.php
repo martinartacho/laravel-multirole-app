@@ -88,6 +88,17 @@
                                                 </button>
                                             </form>
                                         @endcan
+
+                                        @can('publish-notification')
+                                            @unless($notification->is_published)
+                                                <form action="{{ route('notifications.publish', $notification) }}" method="POST" class="d-inline">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm btn-success" title="{{ __('site.Publish') }}">
+                                                        <i class="bi bi-send-check"></i>
+                                                    </button>
+                                                </form>
+                                            @endunless
+                                        @endcan
                                     </div>
                                 </td>
                                 @endcan

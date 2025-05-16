@@ -147,8 +147,14 @@ class NotificationController extends Controller
 
     public function show(Notification $notification)
     {
-        // Los invitados no deben acceder
         abort_if(Auth::user()->hasRole('invited'), 403);
+        
+        // Marcar como leída al visualizar
+        if ($notification->read_at === null) {
+            // Pasar el usuario autenticado como argumento
+            $notification->markAsRead(Auth::user());
+        }
+        
         return view('notifications.show', compact('notification'));
     }
 
@@ -158,18 +164,6 @@ class NotificationController extends Controller
         return redirect()->route('notifications.index')->with('success', 'Notificación eliminada');
     }
 
-    public function publish(Notification $notification)
-    {
-        // $this->authorize('publish', $notification);
-
-        $notification->update([
-            'is_published' => true,
-            'published_at' => now()
-        ]);
-
-        // Aquí se puede integrar el envío real (push, email, etc.)
-        return redirect()->route('notifications.index')->with('success', 'Notificación publicada');
-    }
 
     public function getUnreadCount()
     {
@@ -177,11 +171,52 @@ class NotificationController extends Controller
         return response()->json(['count' => $count]);
     }
 
+    // Publicar
+    public function publish(Notification $notification)
+    {
+        if (!Auth::user()->hasAnyRole(['admin', 'gestor', 'editor']) && 
+            !Auth::user()->can('notifications.publish')) {
+            abort(403);
+        }
+
+        $notification->update([
+            'is_published' => true,
+            'published_at' => now()
+        ]);
+
+        return redirect()->route('notifications.index')
+            ->with('success', __('site.Notification_published'));
+    }
+
+    // marcar como leida
+    public function markAsRead($user = null)
+    {
+        $user = $user ?: auth()->user();
+        $this->read_at = now();
+        $this->save();
+        
+        // O si usas relación muchos a muchos:
+        $user->notifications()->updateExistingPivot($this->id, [
+            'read_at' => now()
+        ]);
+    }
+
+
+    // marcar todas como leidas
     public function markAllAsRead()
     {
-        Auth::user()->unreadNotifications->markAsRead();
-        return response()->json(['message' => 'Todas leídas']);
+        // Solución 1: Usar el método del trait Notifiable
+        Auth::user()->unreadNotifications()->update(['read_at' => now()]);
+        
+        // Solución 2: Alternativa si la anterior no funciona
+        // foreach (Auth::user()->unreadNotifications as $notification) {
+        //     $notification->markAsRead();
+        // }
+        
+        return response()->json(['success' => true]);
     }
+
+    
 
     protected function assignRecipients(Notification $notification)
     {
@@ -198,6 +233,6 @@ class NotificationController extends Controller
         }
 
         $notification->recipients()->sync($users);
-}
+    }
 
 }

@@ -49,6 +49,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // CRUD principal de notificaciones
     Route::middleware(['auth'])->group(function () {
+
+        
         Route::get('/notifications', [NotificationController::class, 'index'])
             ->name('notifications.index')
             ->middleware('permission:notifications.view');
@@ -76,15 +78,35 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/notifications/{notification}', [NotificationController::class, 'destroy'])
             ->name('notifications.destroy')
             ->middleware('permission:notifications.delete');
-    });
 
+         Route::post('/notifications/mark-as-read/{notification}', [NotificationController::class, 'markAsRead'])
+        ->name('notifications.mark-as-read')
+        ->middleware('auth');
+
+        Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])
+            ->name('notifications.mark-all-read')
+            ->middleware('auth');
+
+        Route::post('/notifications/{notification}/publish', [NotificationController::class, 'publish'])
+            ->name('notifications.publish')
+            ->middleware('permission:notifications.publish');
+
+    });
 
 
     // API para notificaciones
-    Route::prefix('api')->group(function () {
-        Route::get('/notifications/unread-count', [NotificationController::class, 'getUnreadCount'])->name('notifications.unread-count');
-        Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.mark-all-read');
+
+    Route::prefix('api')->middleware('auth')->group(function () {
+        Route::get('/notifications/unread-count', [NotificationController::class, 'getUnreadCount'])
+            ->name('notifications.unread-count');
+        
+    /*  Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])
+            ->name('notifications.mark-all-read'); */
+        
+        Route::post('/notifications/{notification}/mark-read', [NotificationController::class, 'markAsRead'])
+            ->name('notifications.mark-read');
     });
+
 
 
 });

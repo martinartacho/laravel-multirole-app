@@ -65,7 +65,6 @@ class UserSeeder extends Seeder
             'email' => 'invited2@example.com',
             'password' => Hash::make('Site.123'),
         ]);
-        // $invited1->assignRole('invited');  sense rol
 
     }
 }
