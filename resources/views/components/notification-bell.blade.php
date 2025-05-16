@@ -39,7 +39,7 @@
                     <div class="text-xs text-gray-500">{{ $notification->created_at->diffForHumans() }}</div>
                 </a>
             @empty
-                <div class="px-4 py-3 text-sm text-gray-500">{{ __('site.No notifications') }}</div>
+                <div class="px-4 py-3 text-sm text-gray-500">{{ __('site.No_notifications') }}</div>
             @endforelse
         </div>
 

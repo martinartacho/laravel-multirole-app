@@ -13,6 +13,10 @@ return [
     |
     */
 
+    'User' => 'User',
+    'Dashboard' => 'Dashboard',
+    'Notifications' => 'Notifications',
+
     'registration_date' => 'Registration date',
     'Name' => 'Name',
     'Email' => 'Email',
@@ -86,18 +90,6 @@ return [
     'item_5' => 'To get started, you can take a look at the code at',
     'item_6' => 'GitHub',
     'item_7' => 'Suggestions, proposals, reviews, contributions and also collaborators are expected.',
-    'item_8' => 'Xxx',
-    'item_9' => 'Xxx',
-    'item_10' => 'Xxx',
-    'xxx' => 'Xxx',
-    'xxx' => 'Xxx',
-    'xxx' => 'Xxx',
-    'xxx' => 'Xxx',
-    'xxx' => 'Xxx',
-    'xxx' => 'Xxx',
-    'xxx' => 'Xxx',
-    'xxx' => 'Xxx',
-    'xxx' => 'Xxx',
 
 ];
 

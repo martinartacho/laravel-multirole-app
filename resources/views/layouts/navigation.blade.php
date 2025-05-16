@@ -35,7 +35,7 @@
 
                                         <x-slot name="content">
                                             <x-dropdown-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
-                                                {{ __('Users') }}
+                                                {{ __('site.Users') }}
                                             </x-dropdown-link>
                                         </x-slot>
                                     </x-dropdown>
@@ -53,7 +53,7 @@
                                         <x-slot name="trigger">
                                             <span class="inline-flex rounded-md">
                                                 <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:text-gray-900 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
-                                                    {{ __('Manager') }}
+                                                    {{ __('site.Manager') }}
                                                     <svg class="ms-2 -me-0.5 size-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" stroke-width="1.5" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
                                                     </svg>
@@ -63,7 +63,7 @@
 
                                         <x-slot name="content">
                                             <x-dropdown-link :href="route('gestor.users.index')" :active="request()->routeIs('gestor.users.*')">
-                                                {{ __('Users') }}
+                                                {{ __('site.Users') }}
                                             </x-dropdown-link>
                                         </x-slot>
                                     </x-dropdown>
@@ -80,18 +80,12 @@
                     </div>    
                                     
                 </div>
+
             </div>
-<!--             <form method="POST" action="{{ route('locale.set') }}">
-                        @csrf
-                        <select name="locale" onchange="this.form.submit()" 
-                        class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] border-gray-300 rounded-sm text-sm leading-normal">
-                            <option value="en" @selected(app()->getLocale() == 'en')>EN</option>
-                            <option value="es" @selected(app()->getLocale() == 'es')>ES</option>
-                            <option value="ca" @selected(app()->getLocale() == 'ca')>CA</option>
-                        </select>
-                    </form>
-                    <p>Idioma actual: {{ app()->getLocale() }}</p> -->
-            <!-- Settings Dropdown -->
+            
+
+
+<!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
@@ -172,3 +166,14 @@
         </div>
     </div>
 </nav>
+                <div class="language-switcher">
+                    @foreach(config('app.available_locales') as $locale)
+                        <a href="{{ route('language.switch', $locale) }}" 
+                        class="{{ app()->getLocale() === $locale ? 'active' : '' }}">
+                            {{ strtoupper($locale) }}
+                        </a>
+                    @endforeach
+                </div>
+          <!--   <p>Desde sesión: {{ session('locale') }}</p>
+            <p>Desde usuario: {{ Auth::check() ? Auth::user()->locale : 'no auth' }}</p> -->
+            <p>Site welcome:  {{ __('site.welcome') }} Desde sesión: {{ session('locale') }}  Desde usuario: {{ Auth::check() ? Auth::user()->locale : 'no auth' }}</p>
