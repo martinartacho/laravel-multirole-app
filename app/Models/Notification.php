@@ -61,5 +61,18 @@ class Notification extends Model
         ]);
     }
 
+    public function isRead($user = null)
+    {
+        $user = $user ?: auth()->user();
+        
+        if ($this->relationLoaded('pivot')) {
+            // Para relación muchos-a-muchos
+            return $this->pivot->read_at !== null;
+        }
+        
+        // Para sistema estándar
+        return $this->read_at !== null;
+    }
+
 
 }

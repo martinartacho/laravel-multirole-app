@@ -46,16 +46,16 @@
                                     @if($notification->recipient_type === 'all')
                                         {{ __('site.All_users') }}
                                     @elseif($notification->recipient_type === 'role')
-                                        {{ __('site.Roles') }}: {{ $notification->recipient_role }}
+                                        {{ $notification->recipient_role }}
                                     @else 
                                         {{ count($notification->recipient_ids) }}  {{ __('site.Users') }}
                                     @endif
                                 </td>
                                 <td>
                                     @if($notification->is_published)
-                                        <span class="badge bg-success">Publicada {{ __('site.Published') }}</span>
+                                        <span class="badge bg-success"> {{ __('site.Published') }}</span>
                                     @else
-                                        <span class="badge bg-warning">Pendiente {{ __('site.Not_published') }}</span>
+                                        <span class="badge bg-warning"> {{ __('site.Not_published') }}</span>
                                     @endif
                                 </td>
                                 <td>{{ $notification->created_at->format('d/m/Y H:i') }}</td>
@@ -65,7 +65,12 @@
                                             <a href="{{ route('notifications.show', $notification) }}" 
                                                 class="btn btn-sm btn-info"
                                                 title="{{ __('site.View_notification') }}">
-                                                <i class="bi bi-eye-slash"></i>
+                                              
+                                                @if(!$notification->isRead())
+                                                    <i class="bi bi-eye-slash"></i>
+                                                @else
+                                                    <i class="bi bi-eye"></i>
+                                                @endif
                                             </a>
                                         @endcan
 

@@ -27,9 +27,18 @@
                 <a href="{{ route('notifications.show', $notification) }}"
                    class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition">
                     <div class="flex justify-between">
-                        <span class="font-semibold">{{ $notification->title }}</span>
+                       <!--  <span class="font-semibold">{{ $notification->title }}</span>
                         @if($notification->read_at === null)
                             <span class="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full">{{ __('site.New') }}</span>
+                        @endif -->
+                        @if(!$notification->isRead())
+                            <span class="font-semibold">{{ $notification->title }}</span>
+                            <span class="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full">{{ __('site.New') }}</span>
+                            <!-- <i class="bi bi-eye-slash"></i> -->
+                            @else
+                            <span class="{{ $notification->isRead() ? 'opacity-75' : 'font-bold' }}">{{ $notification->title }}</span>
+                            <!-- <span class="text-xs bg-green-100 text-red-700 px-2 py-0.5 rounded-full">{{ __('site.Read') }}</span> -->
+                            <i class="bi bi-eye"></i>
                         @endif
                     </div>
                     <div class="text-xs text-gray-500">{{ $notification->created_at->diffForHumans() }}</div>

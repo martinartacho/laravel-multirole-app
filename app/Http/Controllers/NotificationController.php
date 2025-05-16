@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Notification;
 use App\Models\User;
+use App\Models\Notification_user;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -32,7 +33,7 @@ class NotificationController extends Controller
             $notifications = Notification::latest()->paginate(10);
         } else {
             // Otros ven solo las suyas (relación muchos a muchos)
-            $notifications = Auth::user()->notifications()->latest()->paginate(10);
+            $notifications = Auth::user()->notifications()->latest()->paginate(10);  
         }
 
         return view('notifications.index', compact('notifications'));
@@ -157,6 +158,7 @@ class NotificationController extends Controller
         
         return view('notifications.show', compact('notification'));
     }
+
 
     public function destroy(Notification $notification)
     {

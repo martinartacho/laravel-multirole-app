@@ -71,6 +71,7 @@ class User extends Authenticatable
                     ->orderBy('created_at', 'desc');
     }
     
+    
     public function unreadNotifications()
     {
         return $this->notifications()->wherePivot('read', false);
