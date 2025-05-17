@@ -90,6 +90,20 @@ return [
     'item_5' => 'Para comenzar, puedes echar un vistazo al código en',
     'item_6' => 'GitHub',
     'item_7' => 'Se esperan sugerencias, propuestas, revisiones, contribuciones y también colaboradores.',
-    
+    'to_personal_information' =>' Acceso a tu informació personal.',
+    'assigned_notifications' => 'Acceso a notificaciones.',
+    'full_access' => 'Acceso total a la configuración del sistema.',
+    'User_role_management' => 'Gestió de usuarios y roles.',
+    'Notification_management' => 'Gestión de notificacions.',
+    'Management_users' => 'Gestió de usuarios.',
+    'Profile' => 'Perfil.',
+    'Setting' => 'Configuración.',
+    'New' => 'Nou',
+    'New' => 'Nou',
+    'New' => 'Nou',
+    'New' => 'Nou',
+    'New' => 'Nou',
+    'New' => 'Nou',
+    'New' => 'Nou',
 ];
 

@@ -82,7 +82,6 @@ return [
     'welcome' => 'Welcome to HArtacho!',
     'title_1' => 'Let\'s get started!!',
     'title_2' => 'Autentication and Notifications.',
-
     'item_1' => 'Hartacho with H maybe not a mistake, it\'s about going back to the origins.',
     'item_2' => 'This project is a web application based on Laravel that includes...',
     'item_3' => 'User authentication and different roles from admin to guests, with specific permissions for each role',
@@ -90,6 +89,22 @@ return [
     'item_5' => 'To get started, you can take a look at the code at',
     'item_6' => 'GitHub',
     'item_7' => 'Suggestions, proposals, reviews, contributions and also collaborators are expected.',
+    
+    'to_personal_information' =>' AccesoAccess to your personal information.',
+    'assigned_notifications' => 'Read notifications.',
+    'full_access' => 'Full access to system settings.',
+    'User_role_management' => 'User and role management.',
+    'Notification_management' => 'Notification management.',
+    'Management_users' => 'Management_users.',
+    'Profile' => 'Profile.',
+    'Setting' => 'Setting.',
+    'New' => 'Nou',
+    'New' => 'Nou',
+    'New' => 'Nou',
+    'New' => 'Nou',
+    'New' => 'Nou',
+    'New' => 'Nou',
+    'New' => 'Nou',
 
 ];
 

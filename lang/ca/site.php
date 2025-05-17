@@ -14,8 +14,8 @@ return [
     */
 
     'User' => 'Usuari',
-    'Dashboard' => 'Taule',
-    'Notifications' => 'Notificacions',
+    'Dashboard' => 'Tauler',
+    'Notifications' => 'Notificacions.',
 
     'registration_date' => 'Data de registre',
     'Name' => 'Nom',
@@ -82,7 +82,6 @@ return [
     'welcome' => 'Benvingut/da a HArtacho!',
     'title_1' => 'Comencem!!',
     'title_2' => 'Autenticació i Notificacions.',
-
     'item_1' => 'Hartacho amb H potser no és un error, es tracta de tornar als orígens.',
     'item_2' => 'Aquest projecte és una aplicació web basada en Laravel que inclou...',
     'item_3' => 'Autenticació d\'usuaris i diferents rols des d\'administrador fins a convidats, amb permisos específics per a cada rol',
@@ -90,5 +89,22 @@ return [
     'item_5' => 'Per començar, pots fer una ullada al codi a',
     'item_6' => 'GitHub',
     'item_7' => 'S\'esperen suggeriments, propostes, revisions, contribucions i també col·laboradors.',
+    
+    'to_personal_information' =>' Accés a la teva informació personal.',
+    'assigned_notifications' => 'Accés a notificacions.',
+    'full_access' => 'Accés total a la configuració del sistema.',
+    'User_role_management' => 'Gestió d\'usuaris i rols.',
+    'Notification_management' => 'Gestió de notificacions.',
+    'Management_users' => 'Gestió d\'usuaris.',
+    'Profile' => 'Perfil.',
+    'Setting' => 'Configuració.',
+    'New' => 'Nou',
+    'New' => 'Nou',
+    'New' => 'Nou',
+    'New' => 'Nou',
+    'New' => 'Nou',
+    'New' => 'Nou',
+    'New' => 'Nou',
+
     
 ];
