@@ -9,6 +9,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\LanguageController;
 // use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SettingsController;
 
 // Rutas públicas
 Route::get('/', function () {
@@ -17,6 +18,7 @@ Route::get('/', function () {
 
 // Rutas de autenticación
 require __DIR__.'/auth.php';
+
 
 // Rutas protegidas
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -31,6 +33,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Rutas de administrador
     Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
         Route::resource('users', AdminUserController::class);
+    });
+
+    Route::middleware(['auth', 'role:admin|gestor'])->group(function () {
+        Route::get('/settings', [SettingsController::class, 'edit'])->name('settings.edit');
+        Route::post('/settings/logo', [SettingsController::class, 'updateLogo'])->name('settings.updateLogo');
+ 
+        Route::put('/language', [SettingsController::class, 'updateLanguage'])->name('updateLanguage');
     });
 
 

@@ -37,6 +37,11 @@
                                             <x-dropdown-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
                                                 {{ __('site.Users') }}
                                             </x-dropdown-link>
+
+                                            <x-dropdown-link :href="route('settings.edit')" :active="request()->routeIs('settings.*')">
+                                                {{ __('Settings') }}
+                                            </x-dropdown-link>
+
                                         </x-slot>
                                     </x-dropdown>
                                 </div>

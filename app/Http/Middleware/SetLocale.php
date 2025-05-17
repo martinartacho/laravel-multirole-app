@@ -3,16 +3,19 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Session;
+use App\Models\Setting;
 
 class SetLocale
 {
-    public function handle(Request $request, Closure $next)
+   public function handle($request, Closure $next)
     {
-        $locale = Session::get('locale', config('app.locale'));
-        App::setLocale($locale);
+        // Obtener idioma desde configuración global
+        $lang = cache()->rememberForever('global_language', function () {
+            return Setting::where('key', 'language')->value('value') ?? config('app.locale');
+        });
+
+        App::setLocale($lang);
 
         return $next($request);
     }

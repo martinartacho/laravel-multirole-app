@@ -16,6 +16,15 @@
             <x-dashboard.card title="{{ __('site.Notifications') }}" color="blue">
                 <i class="bi bi-bell"></i> {{ __('site.Notification_management') }}
             </x-dashboard.card>
+
+            <x-dashboard.card title="{{ __('site.Current_Language') }}" color="green">
+                <i class="bi bi-translate"></i>
+                @switch($language)
+                    @case('es') Español @break
+                    @case('ca') Català @break
+                    @default English
+                @endswitch
+            </x-dashboard.card>
         </div>
     </div>
 </div>

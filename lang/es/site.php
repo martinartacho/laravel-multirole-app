@@ -98,12 +98,10 @@ return [
     'Management_users' => 'Gestió de usuarios.',
     'Profile' => 'Perfil.',
     'Setting' => 'Configuración.',
-    'New' => 'Nou',
-    'New' => 'Nou',
-    'New' => 'Nou',
-    'New' => 'Nou',
-    'New' => 'Nou',
-    'New' => 'Nou',
-    'New' => 'Nou',
+    'Current_Language' => 'Idioma actual',
+    'Spanish' => 'Español',
+    'Catalan' => 'Catalán',
+    'English' => 'Inglés',
+
 ];
 

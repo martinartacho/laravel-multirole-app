@@ -98,13 +98,10 @@ return [
     'Management_users' => 'Management_users.',
     'Profile' => 'Profile.',
     'Setting' => 'Setting.',
-    'New' => 'Nou',
-    'New' => 'Nou',
-    'New' => 'Nou',
-    'New' => 'Nou',
-    'New' => 'Nou',
-    'New' => 'Nou',
-    'New' => 'Nou',
+    'Current_Language' => 'Idioma actual',
+    'Spanish' => 'Spanish',
+    'Catalan' => 'Catalan',
+    'English' => 'English',
 
 ];
 
