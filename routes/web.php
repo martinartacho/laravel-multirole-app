@@ -100,9 +100,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/notifications/unread-count', [NotificationController::class, 'getUnreadCount'])
             ->name('notifications.unread-count');
         
-    /*  Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])
-            ->name('notifications.mark-all-read'); */
-        
         Route::post('/notifications/{notification}/mark-read', [NotificationController::class, 'markAsRead'])
             ->name('notifications.mark-read');
     });

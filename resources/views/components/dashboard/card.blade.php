@@ -1,4 +1,3 @@
-<!-- resources/views/components/dashboard/card.blade.php -->
 @props(['title', 'color' => 'gray', 'link' => null])
 
 <div class="bg-{{ $color }}-50 p-4 rounded-lg border-l-4 border-{{ $color }}-400">
