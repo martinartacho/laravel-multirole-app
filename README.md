@@ -53,11 +53,17 @@ Este proyecto es una aplicación web basada en Laravel que incluye autenticació
 
 ### Instalación y Configuración
 
-1. Clonar el repositorio.
-2. Ejecutar `composer install` para instalar las dependencias.
-3. Configurar el archivo `.env` con los datos de la base de datos.
-4. Ejecutar las migraciones con `php artisan migrate`.
-5. Opcional: Ejecutar los seeders para datos de prueba.
+#### Clonar el repositorio, `git clone git@github.com:martinartacho/mhartacho.git `
+#### Ejecutar `composer install` para instalar las dependencias. 
+`npm install && npm run dev`  la primera vez.
+`npm run dev` Las siguientes veces 
+#### Configurar el archivo `.env` con los datos de la base de datos.
+#### Ejecuta `php artisan key:generate`
+##### Ejecutar las migraciones con `php artisan migrate`.
+#### Opcional: Ejecutar los seeders para rellenar la BBDD con datos de prueba.
+`php artisan db:seed`
+o Ejecutar un seeder específico: `php artisan db:seed --class=NotificationsTableSeeder`
+
 
 ### Notas
 
