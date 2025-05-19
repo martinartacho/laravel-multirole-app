@@ -98,9 +98,9 @@ return [
     'Management_users' => 'Management_users.',
     'Profile' => 'Profile.',
     'Setting' => 'Setting.',
-    'Current_Language' => 'Idioma actual',
+    'Current_Language' => 'Current Language',
     'Spanish' => 'Spanish',
-    'Catalan' => 'Catalan',
+    'Catalan' => 'Catalonia',
     'English' => 'English',
 
 ];

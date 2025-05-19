@@ -20,9 +20,9 @@
             <x-dashboard.card title="{{ __('site.Current_Language') }}" color="green">
                 <i class="bi bi-translate"></i>
                 @switch($language)
-                    @case('es') Español @break
-                    @case('ca') Català @break
-                    @default English
+                    @case('es') {{ __('site.Spanish') }} @break
+                    @case('ca') {{ __('site.Catalonia') }} @break
+                    @default  {{ __('site.English') }}
                 @endswitch
             </x-dashboard.card>
         </div>

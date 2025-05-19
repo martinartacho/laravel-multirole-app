@@ -100,7 +100,7 @@ return [
     'Setting' => 'Configuración.',
     'Current_Language' => 'Idioma actual',
     'Spanish' => 'Español',
-    'Catalan' => 'Catalán',
+    'Catalonia' => 'Catalán',
     'English' => 'Inglés',
 
 ];
