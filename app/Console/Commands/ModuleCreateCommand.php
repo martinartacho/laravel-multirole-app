@@ -19,65 +19,91 @@ class ModuleCreateCommand extends Command
         $this->files = $files;
     }
 
-public function handle()
-{
-    $moduleName = $this->argument('name');
-    $studlyName = Str::studly($moduleName);
-    $snakeName = Str::snake($moduleName, '_');
-    $pluralSnake = Str::plural($snakeName);
 
-    // ... (código existente para crear directorios y archivos)
+   public function handle()
+    {
+        $moduleName = $this->argument('name');
+        $studlyName = Str::studly($moduleName);
+        $modulePath = "modules/$studlyName";
 
-    $this->info("✅ Módulo <comment>$studlyName</comment> creado exitosamente!");
-    $this->line("\n📂 Estructura generada:");
-    
-    $this->displayDirectoryTree($studlyName);
-    
-    $this->line("\n🔧 <fg=white;bg=blue> PASO FINAL REQUERIDO </>");
-    $this->line("Registra el Service Provider en <comment>config/app.php</comment> con:");
-    $this->line("<fg=cyan>Modules\\$studlyName\Providers\\{$studlyName}ServiceProvider::class</>");
-}
-
-protected function displayDirectoryTree($module)
-{
-    $tree = [
-        "modules/$module/" => [
-            'Http/Controllers/' => ["{$module}Controller.php"],
-            'Models/' => ["$module.php"],
-            'Providers/' => ["{$module}ServiceProvider.php"],
-            'Database/Migrations/' => ["migration_file.php"],
-            'Routes/' => ['web.php'],
-            'Views/' => ['index.blade.php'],
-        ],
-        "lang/en/" => ["$module.php"]
-    ];
-
-    $this->renderTree($tree);
-}
-
-protected function renderTree($tree, $prefix = '')
-{
-    foreach ($tree as $folder => $contents) {
-        $this->line("<fg=blue>$folder</>");
-        
-        if (is_array($contents)) {
-            $keys = array_keys($contents);
-            $lastKey = end($keys);
+        // Verificar si el módulo ya existe
+        if ($this->files->exists($modulePath)) {
+            $this->warn("⚠️  El módulo <comment>$studlyName</comment> ya existe!");
             
-            foreach ($contents as $subFolder => $files) {
-                $char = $subFolder === $lastKey ? '└──' : '├──';
-                $this->line("$prefix$char <fg=blue>$subFolder</>");
+            if (!$this->confirm('¿Desea reemplazarlo por uno nuevo? (Se eliminarán todos los archivos existentes)', false)) {
+                $this->line('Operación cancelada');
+                return;
+            }
+            
+            $this->files->deleteDirectory($modulePath);
+            $this->line('Módulo existente eliminado...');
+        }
+        // ... (código existente para crear directorios y archivos)
+
+        $this->info("✅ Módulo <comment>$studlyName</comment> creado exitosamente!");
+        $this->line("\n📂 Estructura generada:");
+        
+        $this->displayDirectoryTree($studlyName);
+        
+        $this->line("\n🔧 <fg=white;bg=blue> PASO FINAL REQUERIDO </>");
+        $this->line("Registra el Service Provider en <comment>config/app.php</comment>:");
+
+        $this->components->info("\n✅ Paso final requerido:");
+        $this->components->warn("Agrega el Service Provider en `config/app.php`:\n");
+        $this->line(<<<'EOT'
+        'providers' => [
+            // ...
+            Modules\Example\Providers\ExampleServiceProvider::class,
+        ],
+        EOT);
+    }
+
+    protected function displayDirectoryTree($module)
+    {
+        $migrationFile = collect($this->files->glob("modules/$module/Database/Migrations/*.php"))
+            ->first();
+        
+        $tree = [
+            "modules/$module/" => [
+                'Http/Controllers/' => ["{$module}Controller.php"],
+                'Models/' => ["$module.php"],
+                'Providers/' => ["{$module}ServiceProvider.php"],
+                'Database/Migrations/' => [basename($migrationFile)],
+                'Routes/' => ['web.php'],
+                'Views/' => ['index.blade.php'],
+            ],
+            "lang/en/" => ["$module.php"]
+        ];
+
+        $this->renderTree($tree);
+    }
+
+    protected function renderTree($tree, $prefix = '')
+    {
+        foreach ($tree as $folder => $contents) {
+            $this->line("<fg=blue>$folder</>");
+            
+            if (is_array($contents)) {
+                $items = array_keys($contents);
+                $lastItem = end($items);
                 
-                if (is_array($files)) {
-                    $filePrefix = $subFolder === $lastKey ? '    ' : '│   ';
-                    foreach ($files as $file) {
-                        $this->line("$prefix$filePrefix└── <fg=green>$file</>");
+                foreach ($contents as $subfolder => $files) {
+                    $connector = $subfolder === $lastItem ? '└──' : '├──';
+                    $this->line("$prefix$connector <fg=blue>$subfolder</>");
+                    
+                    if (is_array($files) && !empty($files)) {
+                        $filePrefix = $subfolder === $lastItem ? '    ' : '│   ';
+                        $lastFile = end($files);
+                        
+                        foreach ($files as $file) {
+                            $fileConnector = $file === $lastFile ? '└──' : '├──';
+                            $this->line("$prefix$filePrefix$fileConnector <fg=green>$file</>");
+                        }
                     }
                 }
             }
         }
     }
-}
 
     protected function createDirectories($module)
     {
@@ -99,7 +125,20 @@ protected function renderTree($tree, $prefix = '')
     // Métodos para crear cada archivo
     protected function createMigration($module, $table)
     {
+        $existingMigrations = collect($this->files->glob("modules/$module/Database/Migrations/*_create_{$table}_table.php"))
+            ->map(fn($path) => basename($path))
+            ->toArray();
+
+        if (!empty($existingMigrations)) {
+            $this->warn('¡Migración existente detectada!');
+            $this->line(' Migraciones encontradas:');
+            foreach ($existingMigrations as $migration) {
+                $this->line("  - <fg=yellow>$migration</>");
+            }
+        }
+
         $timestamp = now()->format('Y_m_d_His');
+        $migrationName = "{$timestamp}_create_{$table}_table.php";
         $stub = str_replace(
             ['{{ table }}'],
             [$table],
