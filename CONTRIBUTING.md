@@ -3,6 +3,51 @@
 Gracias por tu interés en contribuir a MHartacho. Este proyecto busca mantener un código modular, limpio y escalable, por lo que valoramos las contribuciones bien organizadas y alineadas con nuestra arquitectura.
 
 ---
+# Estructura principal (raiz)
+Se trata de la raíz del proyecto y contiene todo el sistema:
+📦Proyecto
+ ┣ 📂app
+ ┣ 📂bootstrap
+ ┣ 📂config
+ ┣ 📂database
+ ┣ 📂modules
+ ┣ 📂public
+ ┣ 📂resources
+ ┣ 📂routes
+ ┣ 📂storage
+ ┣ 📂tests
+ ┗ 📜composer.json, .env, artisan, etc.
+
+# Estructura de módulos
+Es un módulo funcional incluido dentro del sistema, que suele encargarse de:
+Configuraciones (como user_settings)
+Modelos compartidos
+Servicios comunes (como UserSettingService)
+Posiblemente lógica base reutilizable
+
+🔹 Pero no es el proyecto raíz. No debería tener .env, ni artisan, ni composer.json propio.
+Ejemplo de estructura de un módulo
+📦modules
+ ┣ 📂UserSettings
+ ┃ ┣ 📂Database
+ ┃ ┃ ┗ 📂Migrations
+ ┃ ┃ ┃ ┗ 📜2025_05_18_074327_create_user_settings_table.php
+ ┃ ┣ 📂Models
+ ┃ ┃ ┗ 📜UserSetting.php
+ ┃ ┣ 📂Providers
+ ┃ ┃ ┗ 📜UserSettingServiceProvider.php
+ ┃ ┗ 📂Services
+ ┃ ┃ ┗ 📜UserSettingService.php
+ ┗ 📂Users
+ ┃ ┣ 📂Http
+ ┃ ┃ ┣ 📂Controllers
+ ┃ ┃ ┃ ┗ 📜LanguageController.php
+ ┃ ┃ ┗ 📂Livewire
+ ┃ ┃ ┃ ┗ 📜LanguageSelector.php
+ ┃ ┗ 📂Providers
+ ┃ ┃ ┗ 📜UserSettingServiceProvider.php
+
+---
 
 ## 💡 Cómo contribuir
 
