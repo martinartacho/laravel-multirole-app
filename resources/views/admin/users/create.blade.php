@@ -28,7 +28,7 @@
 
                             <!-- Contraseña -->
                             <div>
-                                <x-input-label for="password" :value="__('site.Password_label')" />
+                                <x-input-label for="password" :value="__('site.Password')" />
                                 <x-text-input id="password" class="block mt-1 w-full"
                                                 type="password"
                                                 name="password"

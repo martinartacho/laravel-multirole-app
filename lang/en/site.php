@@ -30,7 +30,7 @@ return [
     'Are you sure to delete this user' => 'Are you sure to delete this user',
     'rol' => 'Rol',
     'No role' => 'No role',
-    'Password_label' => 'Password',
+    'Password' => 'Password',
     'password_confirmation' => 'Password confirmation',
     'login' => 'Iniciar sesión',
     'register' => 'Registrarse',

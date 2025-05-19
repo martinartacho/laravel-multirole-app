@@ -30,7 +30,7 @@ return [
     'Are you sure to delete this user' => 'Estàs segur que vols eliminar aquest usuari?',
     'rol' => 'Rol',
     'No role' => 'Sense rol',
-    'Password_label' => 'Contrasenya',
+    'Password' => 'Contrasenya',
     'password_confirmation' => 'Confirmació de contrasenya',
     'login' => 'Iniciar sessió',
     'register' => 'Registrar-se',
