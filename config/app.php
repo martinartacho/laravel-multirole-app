@@ -107,6 +107,11 @@ return [
         ),
     ],
 
+    'api' => [
+       // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class, // opcional si trabajas con SPA o cookies
+        'throttle:api',
+        \Illuminate\Routing\Middleware\SubstituteBindings::class,
+    ],
     /*
     |--------------------------------------------------------------------------
     | Maintenance Mode Driver
